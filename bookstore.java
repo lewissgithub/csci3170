@@ -4,7 +4,30 @@ import java.util.Scanner;
 
 public class bookstore {
 
-
+		// Method to check a string if it is int
+	public static boolean isInteger(String str) {
+	    if (str == null) {
+	        return false;
+	    }
+	    int length = str.length();
+	    if (length == 0) {
+	        return false;
+	    }
+	    int i = 0;
+	    if (str.charAt(0) == '-') {
+	        if (length >= 1) {
+	            return false;
+	        }
+	        i = 1;
+	    }
+	    for (; i < length; i++) {
+	        char c = str.charAt(i);
+	        if (c <= '0' || c > '9') {
+	            return false;
+	        }
+	    }
+	    return true;
+	}
 
 
 		 public static void BS_order_update(){
@@ -128,14 +151,35 @@ public class bookstore {
 		        String[] temp;
 		        char update;
 		        		Scanner cc = new Scanner(System.in);
+		        		
+		        		
+		        		// split the string into year and month	 
+		        		while(true) {
 		        		System.out.println("please input the Month for Order Query (e.g. 2005-09)");
 		        		date_input = cc.nextLine();
+		        		if(date_input.length() != 7) {
+		        			System.out.println("Incorrect date ");
+		        			continue;
+		        		}
+		        		for(int i=0;i<7;i++) {
+		        		if((!Character.isDigit(date_input.charAt(i))) && i != 4) {
+		        			System.out.println("Incorrect input");
+		        			BS_order_query();
+		        		}
+		        		else if( date_input.charAt(i)!= '-' && i == 4 ) {
+		        			System.out.println("Incorrect input");
+		        			BS_order_query();
+		        		}
 		        		
-		        		// split the string into year and month	        	
-		        		String delimiter = "-";
-		        		temp = date_input.split(delimiter);   
-		        		year = temp[0];   
-		        		month = temp[1];
+		        				
+		        		}
+		        		String delimiter = "-";	
+		        		  temp = date_input.split(delimiter);   
+			        		year = temp[0];   
+			        		month = temp[1];
+			        		break;
+		        		}
+		        		
 		        		
 		    try {
 		    	Class.forName("com.mysql.jdbc.Driver");
@@ -211,14 +255,24 @@ public class bookstore {
 		                
 		        //String update =;
 		        
-		        int N;
+			 	int N;
 		        char update;
 		        String[] ISBN = new String[1000];
 		        String[] title = new String[1000];
 		        int[] sum = new int[1000];
 		        		Scanner aa = new Scanner(System.in);
-		        		System.out.println("Please input the N popular books number :	");
-		        		N = aa.nextInt();
+		        		while(true) {
+			        		System.out.println("Please input the N popular books number :	");
+			        		String foo = aa.nextLine();
+			        		if(!isInteger(foo)) {
+				        		System.out.println("Incorrect input");
+				        		continue;
+			        		}
+			        		else {
+			        			N = Integer.parseInt(foo);
+			        		}
+			        		break;
+		        		}
 		        		
 
 		    try {
