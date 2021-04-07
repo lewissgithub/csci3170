@@ -199,9 +199,10 @@ public class bookstore {
 		        e.printStackTrace();
 		    }
 		 }
+	
 		 
 		 public static void N_mostpopular(){
-			 String N_query = "SELECT book.ISBN, book.Title, book.no_of_copies, sum(ordering.quantity) "
+			 String N_query = "SELECT book.ISBN, book.title, book.no_of_copies, sum(ordering.quantity) "
 		        		+ "FROM book INNER "
 		        		+ "JOIN ordering "
 		        		+ "ON book.ISBN=ordering.ISBN "
@@ -213,7 +214,7 @@ public class bookstore {
 		        int N;
 		        char update;
 		        String[] ISBN = new String[1000];
-		        String[] Title = new String[1000];
+		        String[] title = new String[1000];
 		        int[] sum = new int[1000];
 		        		Scanner aa = new Scanner(System.in);
 		        		System.out.println("Please input the N popular books number :	");
@@ -252,7 +253,7 @@ public class bookstore {
 					else {
 						do{
 			    		ISBN[count] = N_result.getString("ISBN");
-			    		Title[count] = N_result.getString("Title");
+			    		title[count] = N_result.getString("title");
 			    		sum[count] = N_result.getInt("sum(ordering.quantity)");
 			    		//int charge = result.getInt("charge");
 						//System.out.println(ISBN[count] + "\t" + Title[count] + "\t" + sum[count]);
@@ -261,7 +262,7 @@ public class bookstore {
 			    	}while(N_result.next());
 			    	if(N >= count) {
 			    		for(int i =0;i<count;i++) {
-				    		System.out.println(ISBN[i] + "\t" + Title[i] + "\t" + sum[i]);
+				    		System.out.println(ISBN[i] + "\t" + title[i] + "\t" + sum[i]);
 				    	}
 			    		
 			    	}
@@ -270,7 +271,7 @@ public class bookstore {
 			    		if(sum[i]== sum[i+1] && i > 0 ) {
 			    			N ++;
 			    		}
-			    		System.out.println(ISBN[i] + "\t" + Title[i] + "\t" + sum[i]);
+			    		System.out.println(ISBN[i] + "\t" + title[i] + "\t" + sum[i]);
 			    	}
 			    	}
 			 }
